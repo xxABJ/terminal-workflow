@@ -2,8 +2,9 @@
 A great starting point with the power of Portability and Windows &lt;3
 
 
+
 # 🚀 A Portable Windows Dev Toolchain  
-A fully self‑contained, zero‑install development environment for Windows.  
+A fully self‑contained, zero‑install development environment for Windows.
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
 - **Neovim (nightly)**
@@ -24,9 +25,107 @@ This project was also designed by me! Also it was debugged and fined tuned with 
 
 ---
 
+# 🌍 Why Portable?
+
+Modern development environments are powerful — but they’re also fragile. They depend on system PATH, registry entries, installers, admin rights, and a dozen assumptions about the machine they’re running on. One broken dependency or one conflicting version can ruin everything.
+
+A **portable toolchain** solves all of that.
+
+
+### 🔒 1. Zero System Impact
+This toolchain never touches:
+
+- system PATH
+- registry keys
+- Program Files
+- AppData
+- global Python/Node installations
+
+Everything stays inside one folder.
+Delete the folder → everything is gone.
+No leftovers. No pollution. No surprises.
+
+
+### 🚀 2. Works Anywhere
+Because it’s self‑contained, you can run it on:
+
+- clean Windows installs
+- locked‑down corporate machines
+- university lab PCs
+- cloud VMs
+- USB drives
+- offline environments
+- machines without admin rights
+
+If the folder exists, the toolchain works.
+
+
+### 🔁 3. Fully Reproducible
+A clean install always produces the exact same environment:
+
+- same versions
+- same folder structure
+- same launchers
+- same PATH
+- same behavior
+
+No “it works on my machine.”
+Your environment becomes deterministic.
+
+
+### 🧳 4. Move It, Sync It, Back It Up
+You can:
+
+- move the folder
+- rename it
+- zip it
+- sync it with OneDrive/Dropbox
+- clone it to another machine
+
+Everything still works because paths are stored in `state.json` and launchers activate the environment dynamically.
+
+
+### 🛠 5. No Conflicts, No Collisions
+**Portable tools never conflict with:**
+
+- system Python
+- system Node
+- system Git
+- system Neovim
+- system PATH
+
+Your environment is isolated and predictable.
+
+
+### 🧩 6. Perfect for Plugin‑Heavy Neovim
+Neovim plugins depend on:
+
+- ripgrep
+- fd
+- Python + pynvim
+- Node.js + neovim provider
+
+A portable toolchain guarantees all of these exist and work together, no matter what the host machine has installed.
+
+
+### 🧘 7. Peace of Mind
+You always know:
+
+- where your tools live
+- what versions you’re using
+- what PATH is active
+- what Neovim sees
+- what Python sees
+- what Node sees
+
+No hidden state. No global conflicts. No mystery errors.
+
+
+---
+
 ## ✨ Features
 
-### 🔧 Fully Portable  
+### 🔧 Fully Portable
 Everything lives inside a single root folder:
 
 ```
@@ -37,29 +136,61 @@ Everything lives inside a single root folder:
   state.json
 ```
 
-Move it anywhere. Put it on a USB stick. Sync it with OneDrive.  
+Move it anywhere. Put it on a USB stick. Sync it with OneDrive.
 It just works.
 
-### ⚡ Zero System Modifications  
-- No registry edits  
-- No PATH changes  
-- No installers  
-- No admin rights required  
+### ⚡ Zero System Modifications
+- No registry edits
+- No PATH changes
+- No installers
+- No admin rights required 
 
-### 🧠 Smart State System  
+### 🧠 Smart State System
 A persistent `state.json` tracks tool paths and is read by all launchers.
 
-### 🛠 Auto‑Generated Launchers  
+### 🛠 Auto‑Generated Launchers
 Every tool gets a PowerShell launcher that:
 
-- Activates the portable PATH  
-- Sets XDG directories for Neovim  
-- Sets Python environment variables  
-- Sets Node environment variables  
-- Runs the tool cleanly and consistently  
+- Activates the portable PATH
+- Sets XDG directories for Neovim
+- Sets Python environment variables
+- Sets Node environment variables
+- Runs the tool cleanly and consistently
 
-### 🧹 Clean, Reproducible Installs  
+### 🧹 Clean, Reproducible Installs
 Delete the `tools/` folder and run the installer again — you get the exact same environment every time.
+
+---
+
+## 🧱 Architecture Overview
+
+### Installer  
+- Downloads tools using `curl`
+- Extracts archives using `tar`
+- Flattens directory structures
+- Writes `state.json`
+- Generates PowerShell launchers
+- Creates CMD wrappers
+
+### Launchers
+- Load `state.ps1`
+- Build PATH using array‑join (preserves system PATH)
+- Set environment variables
+- Run the tool
+
+### State System  
+`state.json` stores:
+
+```json
+{
+  "nodePath": "D:\\tw\\tools\\node\\current",
+  "pythonPath": "D:\\tw\\tools\\python\\current",
+  "nvimPath": "D:\\tw\\tools\\nvim\\current",
+  "rgPath": "D:\\tw\\tools\\ripgrep\\current",
+  "fdPath": "D:\\tw\\tools\\fd\\current",
+  "gitPath": "D:\\tw\\tools\\git\\current\\cmd"
+}
+```
 
 ---
 
@@ -82,7 +213,7 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
 2. Place it anywhere (e.g., `D:\ac6\`).
 3. Make sure the `.\links` directory is in the same directory as the `.\install.cmd` file!
 
----
+```
 ac6/
 │
 ├── install.cmd                # Main installer script (downloads + extracts + configures tools)
@@ -92,7 +223,7 @@ ac6/
     ├── links-latest.conf      # The newest versions of every tool (time of production)
     ├── links-lts.conf         # Stable, long-term support versions
     └── links-custom.conf      # User-editable profile for custom versions
----
+```
 
 4. Run:
 
@@ -105,34 +236,19 @@ install.cmd
 
 That’s it.
 
----
+## 🧹 Uninstall
 
-### 🔧 Version Flexibility  
+Just delete the folder.
 
-All tool versions are **fully customizable** through the link profiles:
-
-```
-links/
-  links-latest.conf
-  links-lts.conf
-  links-custom.conf
-```
-
-Each profile maps tools to download URLs, allowing you to:
-
-- Pin exact versions  
-- Track nightly builds  
-- Use LTS releases  
-- Mix and match versions  
-- Create your own custom profile  
-
-Your installer simply reads the profile and builds the environment accordingly.
+No registry keys.
+No PATH pollution.
+No system changes.
 
 ---
 
-## 🔧 How to Customize Tool Versions
+## 🛠 Customizing Tool Versions
 
-Your toolchain is fully version‑agnostic.  
+Your toolchain is fully version‑agnostic.
 Every tool — Neovim, Python, Node.js, Git, ripgrep, fd — is downloaded from URLs defined in a **link profile**.
 
 These profiles live in:
@@ -146,26 +262,26 @@ links/
 
 Each profile is a simple `key=value` file where:
 
-- **key** = tool name  
-- **value** = download URL for that tool  
+- **key** = tool name
+- **value** = download URL for that tool
 
 The installer reads the selected profile and builds the environment accordingly.
 
-### ✔ Want nightly Neovim?  
+### ✔ Want nightly Neovim?
 Use a nightly URL.
 
-### ✔ Want Python 3.12 instead of 3.14?  
+### ✔ Want Python 3.12 instead of 3.14?
 Swap the URL.
 
-### ✔ Want Node LTS instead of latest?  
+### ✔ Want Node LTS instead of latest?
 Point to the LTS ZIP.
 
-### ✔ Want to freeze versions for reproducibility?  
+### ✔ Want to freeze versions for reproducibility?
 Create a custom profile.
 
 ---
 
-## 🛠 Customizing Tool Versions
+## 🔧 How to Customize Tool Versions
 
 Edit the link profile:
 
@@ -184,7 +300,7 @@ PYTHON=https://...
 NVIM=https://...
 ```
 
-You can create your own profile:
+You can create your own profile with:
 
 ```
 links/links-custom.conf
@@ -236,54 +352,20 @@ FD=https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-v9.0.0-x86_64-pc-wi
 
 This file is:
 
-- Easy to read  
-- Easy to edit  
-- Easy to version‑control  
-- Fully deterministic  
+- Easy to read
+- Easy to edit
+- Easy to version‑control
+- Fully deterministic
 
 ---
 
-## 🧠 Why This System Is Powerful
+# 📁 Folder Structure
 
-- You can pin exact versions for reproducibility  
-- You can track nightly builds for bleeding‑edge setups  
-- You can maintain multiple profiles for different projects  
-- You can share profiles with teammates  
-- You can freeze your environment for years  
-
----
-
-## 🧭 Usage
-
-Launch Neovim:
-
-```
-tools\nvim.cmd
-```
-
-Launch Python:
-
-```
-tools\python.cmd
-```
-
-Launch Node:
-
-```
-tools\node.cmd
-```
-
-All tools automatically activate the portable PATH and environment.
-
----
-
-## 📁 Folder Structure
-
-Your portable toolchain is intentionally simple, predictable, and self‑contained.  
+Your portable toolchain is intentionally simple, predictable, and self‑contained.
 Everything lives inside a single root directory, and every component has a clear purpose.
 
 ```
-ac6/
+tw/
 │
 ├── install.cmd                # One-shot installer (downloads + extracts + configures everything)
 ├── state.json                 # Persistent state (paths for all tools)
@@ -341,21 +423,45 @@ ac6/
 
 ## 🧠 Why This Structure Works So Well
 
-### ✔ Predictable  
-Every tool has a `current/` folder.  
+### ✔ Predictable
+Every tool has a `current/` folder.
 Every launcher knows exactly where to look.
 
-### ✔ Portable  
-Move the entire folder → everything still works.  
+### ✔ Portable
+Move the entire folder → everything still works.
 State.json updates paths automatically.
 
-### ✔ Clean  
-No global installs.  
-No registry keys.  
+### ✔ Clean
+No global installs.
+No registry keys.
 No PATH pollution.
 
-### ✔ Reproducible  
+### ✔ Reproducible
 Delete `tools/` → run installer → get the exact same environment.
+
+---
+
+## 🧭 Usage
+
+Launch Neovim:
+
+```
+tools\nvim.cmd
+```
+
+Launch Python:
+
+```
+tools\python.cmd
+```
+
+Launch Node:
+
+```
+tools\node.cmd
+```
+
+All tools automatically activate the portable PATH and environment.
 
 ---
 
@@ -377,191 +483,40 @@ Inside Neovim:
 
 You should see:
 
-- ripgrep ✔  
-- node provider ✔  
-- python provider ✔  
-- curl ✔  
-- treesitter ✔  
+- ripgrep ✔
+- node provider ✔
+- python provider ✔
+- curl ✔
+- treesitter ✔
 
 Perl/Ruby warnings are normal unless you install those providers.
 
 ---
 
-## 🛠 Customizing Tool Versions
+## 🧠 Why This System Is Powerful
 
-Edit the link profile:
-
-```
-links/links-latest.conf
-```
-
-Each line maps a tool to a download URL:
-
-```
-GIT=https://...
-RIPGREP=https://...
-FD=https://...
-NODE=https://...
-PYTHON=https://...
-NVIM=https://...
-```
-
-You can create your own profile:
-
-```
-links/links-custom.conf
-```
-
-Then select it during installation.
-
----
-
-## 🧱 Architecture Overview
-
-### Installer  
-- Downloads tools using `curl`
-- Extracts archives using `tar`
-- Flattens directory structures
-- Writes `state.json`
-- Generates PowerShell launchers
-- Creates CMD wrappers
-
-### Launchers  
-- Load `state.ps1`
-- Build PATH using array‑join (preserves system PATH)
-- Set environment variables
-- Run the tool
-
-### State System  
-`state.json` stores:
-
-```json
-{
-  "nodePath": "D:\\ac6\\tools\\node\\current",
-  "pythonPath": "D:\\ac6\\tools\\python\\current",
-  "nvimPath": "D:\\ac6\\tools\\nvim\\current",
-  "rgPath": "D:\\ac6\\tools\\ripgrep\\current",
-  "fdPath": "D:\\ac6\\tools\\fd\\current",
-  "gitPath": "D:\\ac6\\tools\\git\\current\\cmd"
-}
-```
-
----
-
-## 🧹 Uninstall
-
-Just delete the folder.
-
-No registry keys.  
-No PATH pollution.  
-No system changes.
+- You can pin exact versions for reproducibility
+- You can track nightly builds for bleeding‑edge setups
+- You can maintain multiple profiles for different projects
+- You can share profiles with teammates
+- You can freeze your environment for years
 
 ---
 
 ## 🏁 Roadmap
 
-- Portable LSP servers  
-- Portable Treesitter parser installer  
-- Portable plugin manager  
-- Auto‑update script  
-- GUI launcher  
-- Optional curl bundle  
+- Portable LSP servers
+- Portable Treesitter parser installer
+- Portable plugin manager
+- Auto‑update script
+- GUI launcher
+- Optional curl bundle
 
 ---
 
-## 🌍 Why Portable?
+# ❤️ Credits
 
-Modern development environments are powerful — but they’re also fragile. They depend on system PATH, registry entries, installers, admin rights, and a dozen assumptions about the machine they’re running on. One broken dependency or one conflicting version can ruin everything.
-
-A **portable toolchain** solves all of that.
-
-### 🔒 1. Zero System Impact  
-This toolchain never touches:
-
-- system PATH  
-- registry keys  
-- Program Files  
-- AppData  
-- global Python/Node installations  
-
-Everything stays inside one folder.  
-Delete the folder → everything is gone.  
-No leftovers. No pollution. No surprises.
-
-### 🚀 2. Works Anywhere  
-Because it’s self‑contained, you can run it on:
-
-- clean Windows installs  
-- locked‑down corporate machines  
-- university lab PCs  
-- cloud VMs  
-- USB drives  
-- offline environments  
-- machines without admin rights  
-
-If the folder exists, the toolchain works.
-
-### 🔁 3. Fully Reproducible  
-A clean install always produces the exact same environment:
-
-- same versions  
-- same folder structure  
-- same launchers  
-- same PATH  
-- same behavior  
-
-No “it works on my machine.”  
-Your environment becomes deterministic.
-
-### 🧳 4. Move It, Sync It, Back It Up  
-You can:
-
-- move the folder  
-- rename it  
-- zip it  
-- sync it with OneDrive/Dropbox  
-- clone it to another machine  
-
-Everything still works because paths are stored in `state.json` and launchers activate the environment dynamically.
-
-### 🛠 5. No Conflicts, No Collisions  
-Portable tools never conflict with:
-
-- system Python  
-- system Node  
-- system Git  
-- system Neovim  
-- system PATH  
-
-Your environment is isolated and predictable.
-
-### 🧩 6. Perfect for Plugin‑Heavy Neovim  
-Neovim plugins depend on:
-
-- ripgrep  
-- fd  
-- Python + pynvim  
-- Node.js + neovim provider  
-
-A portable toolchain guarantees all of these exist and work together, no matter what the host machine has installed.
-
-### 🧘 7. Peace of Mind  
-You always know:
-
-- where your tools live  
-- what versions you’re using  
-- what PATH is active  
-- what Neovim sees  
-- what Python sees  
-- what Node sees  
-
-No hidden state. No global conflicts. No mystery errors.
-
----
-
-## ❤️ Credits
-
-Built by Ali — a developer obsessed with clean, portable, reproducible workflows.  
+Built by Ali — a developer obsessed with clean, portable, reproducible workflows.
 Designed with care, iteration, and a relentless pursuit of reliability. (Thanks Copilot (●'◡'●)❤️)
 
 ---
