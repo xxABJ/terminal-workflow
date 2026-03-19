@@ -4,7 +4,7 @@ A great starting point with the power of Portability and Windows &lt;3
 
 
 # 🚀 A Portable Windows Dev Toolchain  
-A fully self‑contained, zero‑install development environment for Windows.
+A fully self‑contained development environment for Windows.
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
 - **Neovim (nightly)**
@@ -21,7 +21,7 @@ Drop it into any folder. Run one installer. Get a complete toolchain:
 - **Fully reproducible clean installs**
 
 This project is designed for developers who want a **portable, relocatable, zero‑conf environment** that works anywhere — USB drives, cloud folders, offline machines, restricted systems, or clean Windows installs.
-This project was also designed by me! Also it was debugged and fined tuned with the help of the awesome Copilot ;-)
+This project was also designed by me! Also it was debugged and fine-tuned with the help of the awesome Copilot ;-)
 
 ---
 
@@ -210,11 +210,11 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
 ## 🚀 Installation
 
 1. Clone or download this repository.
-2. Place it anywhere (e.g., `D:\ac6\`).
-3. Make sure the `.\links` directory is in the same directory as the `.\install.cmd` file!
+2. Place it anywhere (e.g., `D:\tw\`).
+3. Make sure the `D:\tw\links` directory is in the same directory as the `D:\tw\install.cmd` file!
 
 ```
-ac6/
+tw/
 │
 ├── install.cmd                # Main installer script (downloads + extracts + configures tools)
 │
@@ -240,9 +240,9 @@ That’s it.
 
 Just delete the folder.
 
-No registry keys.
-No PATH pollution.
-No system changes.
+**No registry keys.**
+**No PATH pollution.**
+**No system changes.**
 
 ---
 
@@ -472,6 +472,9 @@ Your Neovim config lives here:
 ```
 ../tools/nvim/current/config/nvim/init.lua
 ```
+
+What are you waiting for ?
+Create one !
 
 ## 🧪 Health Check
 
