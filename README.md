@@ -65,14 +65,14 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
 
 ## 📦 Tools Included
 
-| Tool | Version | Notes |
-|------|---------|-------|
-| Neovim | Nightly | Portable build |
-| Python | 3.14 embed | pip + pynvim installed |
-| Node.js | Latest | npm + neovim provider |
-| Git | PortableGit | No installer needed |
-| ripgrep | Latest | Required for Telescope |
-| fd | Latest | Fast file search |
+| Tool      | Description |
+|-----------|-------------|
+| **Neovim** | Portable build with full runtime, XDG directories, and plugin support |
+| **Python (embed)** | Self‑contained Python environment with pip + pynvim preinstalled |
+| **Node.js** | Portable Node + npm with the Neovim Node provider installed |
+| **Git (PortableGit)** | Fully portable Git distribution (no installer, no system changes) |
+| **ripgrep** | High‑performance search tool used by many Neovim plugins |
+| **fd** | Fast, user‑friendly alternative to `find`, used by Telescope and others |
 
 ---
 
@@ -80,7 +80,21 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
 
 1. Clone or download this repository.
 2. Place it anywhere (e.g., `D:\ac6\`).
-3. Run:
+3. Make sure the `.\links` directory is in the same directory as the `.\install.cmd` file!
+
+---
+ac6/
+│
+├── install.cmd                # Main installer script (downloads + extracts + configures tools)
+│
+└── links/                     # Version profiles for all tools
+    │
+    ├── links-latest.conf      # The newest versions of every tool (time of production)
+    ├── links-lts.conf         # Stable, long-term support versions
+    └── links-custom.conf      # User-editable profile for custom versions
+---
+
+4. Run:
 
 ```
 install.cmd
@@ -90,6 +104,152 @@ install.cmd
 5. Wait for the installer to download and configure all tools.
 
 That’s it.
+
+---
+
+### 🔧 Version Flexibility  
+
+All tool versions are **fully customizable** through the link profiles:
+
+```
+links/
+  links-latest.conf
+  links-lts.conf
+  links-custom.conf
+```
+
+Each profile maps tools to download URLs, allowing you to:
+
+- Pin exact versions  
+- Track nightly builds  
+- Use LTS releases  
+- Mix and match versions  
+- Create your own custom profile  
+
+Your installer simply reads the profile and builds the environment accordingly.
+
+---
+
+## 🔧 How to Customize Tool Versions
+
+Your toolchain is fully version‑agnostic.  
+Every tool — Neovim, Python, Node.js, Git, ripgrep, fd — is downloaded from URLs defined in a **link profile**.
+
+These profiles live in:
+
+```
+links/
+  links-latest.conf
+  links-lts.conf
+  links-custom.conf
+```
+
+Each profile is a simple `key=value` file where:
+
+- **key** = tool name  
+- **value** = download URL for that tool  
+
+The installer reads the selected profile and builds the environment accordingly.
+
+### ✔ Want nightly Neovim?  
+Use a nightly URL.
+
+### ✔ Want Python 3.12 instead of 3.14?  
+Swap the URL.
+
+### ✔ Want Node LTS instead of latest?  
+Point to the LTS ZIP.
+
+### ✔ Want to freeze versions for reproducibility?  
+Create a custom profile.
+
+---
+
+## 🛠 Customizing Tool Versions
+
+Edit the link profile:
+
+```
+links/links-latest.conf
+```
+
+Each line maps a tool to a download URL:
+
+```
+GIT=https://...
+RIPGREP=https://...
+FD=https://...
+NODE=https://...
+PYTHON=https://...
+NVIM=https://...
+```
+
+You can create your own profile:
+
+```
+links/links-custom.conf
+```
+
+Then select it during installation.
+
+## 🚀 Using a Custom Profile
+
+When running the installer:
+
+```
+install.cmd
+```
+
+You’ll be prompted:
+
+```
+Available link profiles:
+  1. links-latest.conf
+  2. links-lts.conf
+  3. links-custom.conf
+
+Choose profile (1/2/3):
+```
+
+Choose **3** to use your custom versions.
+
+## 🧪 Example: `links-custom.conf`
+
+Here’s a clean, realistic example you can include in your repo:
+
+```
+# Custom tool versions for the portable toolchain
+# You can pin exact versions or mix-and-match as needed.
+
+GIT=https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/PortableGit-2.43.0-64-bit.7z.exe
+
+NODE=https://nodejs.org/dist/v20.11.1/node-v20.11.1-win-x64.zip
+
+PYTHON=https://www.python.org/ftp/python/3.12.2/python-3.12.2-embed-amd64.zip
+
+NEOVIM=https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-win64.zip
+
+RIPGREP=https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-msvc.zip
+
+FD=https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-v9.0.0-x86_64-pc-windows-msvc.zip
+```
+
+This file is:
+
+- Easy to read  
+- Easy to edit  
+- Easy to version‑control  
+- Fully deterministic  
+
+---
+
+## 🧠 Why This System Is Powerful
+
+- You can pin exact versions for reproducibility  
+- You can track nightly builds for bleeding‑edge setups  
+- You can maintain multiple profiles for different projects  
+- You can share profiles with teammates  
+- You can freeze your environment for years  
 
 ---
 
@@ -119,27 +279,83 @@ All tools automatically activate the portable PATH and environment.
 
 ## 📁 Folder Structure
 
+Your portable toolchain is intentionally simple, predictable, and self‑contained.  
+Everything lives inside a single root directory, and every component has a clear purpose.
+
 ```
-&Your desired Directory&/
-  install.cmd
-  state.json
-  tools/
-    git/
-    node/
-    python/
-    nvim/
-    ripgrep/
-    fd/
-  scripts/
-    launch-nvim.ps1
-    launch-python.ps1
-    launch-node.ps1
-    ...
-  links/
-    links-latest.conf
-    links-lts.conf
-    links-custom.conf
+ac6/
+│
+├── install.cmd                # One-shot installer (downloads + extracts + configures everything)
+├── state.json                 # Persistent state (paths for all tools)
+│
+├── tools/                     # All portable tools live here
+│   │
+│   ├── git/
+│   │   └── current/           # PortableGit extracted here
+│   │
+│   ├── node/
+│   │   └── current/           # Node.js + npm + neovim provider
+│   │
+│   ├── python/
+│   │   └── current/           # Python embed + pip + pynvim
+│   │
+│   ├── nvim/
+│   │   └── current/           # Neovim portable build
+│   │       ├── bin/           # nvim.exe + runtime binaries
+│   │       ├── config/        # Your Neovim config (init.lua lives here)
+│   │       │   └── nvim/
+│   │       ├── data/          # XDG_DATA_HOME (plugins, packer, lazy.nvim, etc.)
+│   │       ├── state/         # XDG_STATE_HOME (LSP logs, sessions)
+│   │       └── cache/         # XDG_CACHE_HOME (treesitter, swap, undo, etc.)
+│   │
+│   ├── ripgrep/
+│   │   └── current/           # rg.exe
+│   │
+│   ├── fd/
+│   │   └── current/           # fd.exe
+│   │
+│   └── curl/ (optional)       # If you add a portable curl later
+│
+├── scripts/                   # Auto-generated PowerShell launchers
+│   │
+│   ├── state.ps1              # Reads/writes state.json
+│   │
+│   ├── launch-nvim.ps1        # Activates PATH + XDG + runs Neovim
+│   ├── launch-python.ps1      # Activates PATH + PYTHONHOME + runs Python
+│   ├── launch-node.ps1        # Activates PATH + NODE_PATH + runs Node
+│   ├── launch-npm.ps1         # Activates PATH + runs npm
+│   ├── launch-npx.ps1         # Activates PATH + runs npx
+│   ├── launch-rg.ps1          # Activates PATH + runs ripgrep
+│   └── launch-fd.ps1          # Activates PATH + runs fd
+│
+├── *.cmd                      # CMD wrappers for each tool (nvim.cmd, python.cmd, node.cmd, etc.)
+│
+└── links/                     # Version profiles for tools
+    │
+    ├── links-latest.conf      # Latest versions of all tools
+    ├── links-lts.conf         # Long-term stable versions
+    └── links-custom.conf      # User-defined versions (editable)
 ```
+
+---
+
+## 🧠 Why This Structure Works So Well
+
+### ✔ Predictable  
+Every tool has a `current/` folder.  
+Every launcher knows exactly where to look.
+
+### ✔ Portable  
+Move the entire folder → everything still works.  
+State.json updates paths automatically.
+
+### ✔ Clean  
+No global installs.  
+No registry keys.  
+No PATH pollution.
+
+### ✔ Reproducible  
+Delete `tools/` → run installer → get the exact same environment.
 
 ---
 
