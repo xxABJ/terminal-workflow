@@ -4,7 +4,7 @@ A great starting point with the power of Portability and Windows &lt;3
 
 
 # 🚀 A Portable Windows Dev Toolchain  
-A fully self‑contained development environment for Windows.
+A fully self‑contained development environment for Windows (10+/Server).
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
 - **Neovim (nightly)** [Link](https://github.com/neovim/neovim "Give me a start :P")
