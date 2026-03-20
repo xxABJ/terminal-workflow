@@ -159,7 +159,7 @@ rem ============================================================
 >> "%SCRIPTS%\launch-nvim.ps1" echo $env:XDG_DATA_HOME="$n\data"
 >> "%SCRIPTS%\launch-nvim.ps1" echo $env:XDG_STATE_HOME="$n\state"
 >> "%SCRIPTS%\launch-nvim.ps1" echo $env:XDG_CACHE_HOME="$n\cache"
->> "%SCRIPTS%\launch-nvim.ps1" echo ^& "$n\bin\nvim.exe" @args
+>> "%SCRIPTS%\launch-nvim.ps1" echo ^& "$n\current\bin\nvim.exe" @args
 
 rem ============================================================
 rem  launch-rg.ps1
@@ -229,7 +229,7 @@ echo Writing state.json...
 > "%ROOT%state.json" echo ^{
 >> "%ROOT%state.json" echo   "nodePath": "%TOOLS:\=\\%\\node\\current",
 >> "%ROOT%state.json" echo   "pythonPath": "%TOOLS:\=\\%\\python\\current",
->> "%ROOT%state.json" echo   "nvimPath": "%TOOLS:\=\\%\\nvim\\current",
+>> "%ROOT%state.json" echo   "nvimPath": "%TOOLS:\=\\%\\nvim",
 >> "%ROOT%state.json" echo   "rgPath": "%TOOLS:\=\\%\\ripgrep\\current",
 >> "%ROOT%state.json" echo   "fdPath": "%TOOLS:\=\\%\\fd\\current",
 >> "%ROOT%state.json" echo   "gitPath": "%TOOLS:\=\\%\\git\\current\\cmd"
