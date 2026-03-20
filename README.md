@@ -7,12 +7,12 @@ A great starting point with the power of Portability and Windows &lt;3
 A fully self‑contained development environment for Windows.
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
-- **Neovim (nightly)** [Link text](https://example.com "This text appears on hover")
-- **Python (embed) + pip + pynvim** [Link text](https://example.com "This text appears on hover")
-- **Node.js + npm + neovim provider** [Link text](https://example.com "This text appears on hover")
-- **Git (portable)** [Link text](https://example.com "This text appears on hover")
-- **ripgrep** [Link text](https://example.com "This text appears on hover")
-- **fd** [Link text](https://example.com "This text appears on hover")
+- **Neovim (nightly)** [Link](https://github.com/neovim/neovim "Give me a start :P")
+- **Python (embed) + pip + pynvim** [Link](https://www.python.org "Cmon bro :D")
+- **Node.js + npm + neovim provider** [Link](https://nodejs.org/en "It's free xD")
+- **Git (portable)** [Link](https://github.com/git-for-windows/git "Just a simple click xP")
+- **ripgrep** [Link](https://github.com/BurntSushi/ripgrep "Doesn't take that long :')")
+- **fd** [Link](https://github.com/sharkdp/fd "hahaha Thanks bro c':")
 - **Auto‑generated launchers**
 - **Portable PATH activation**
 - **Persistent JSON state**
