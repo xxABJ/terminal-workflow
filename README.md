@@ -8,8 +8,8 @@ A fully self‑contained development environment for Windows (10+/Server).
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
 - **Neovim (nightly)** [Link](https://github.com/neovim/neovim "Give me a starr :P")
-- **Python (embed) + pip + pynvim** [Link](https://www.python.org "Cmon bro :D")
-- **Node.js + npm + neovim provider** [Link](https://nodejs.org/en "It's free xD")
+- **Python (embed) + Automatic pip & pynvim** [Link](https://www.python.org "Cmon bro :D")
+- **Node.js + Automatic npm & neovim provider** [Link](https://nodejs.org/en "It's free xD")
 - **Git (portable)** [Link](https://github.com/git-for-windows/git "Just a simple click xP")
 - **ripgrep** [Link](https://github.com/BurntSushi/ripgrep "Doesn't take that long :')")
 - **fd** [Link](https://github.com/sharkdp/fd "hahaha Thanks bro c':")
