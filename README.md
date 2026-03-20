@@ -7,7 +7,7 @@ A great starting point with the power of Portability and Windows &lt;3
 A fully self‑contained development environment for Windows (10+/Server).
 Drop it into any folder. Run one installer. Get a complete toolchain:
 
-- **Neovim (nightly)** [Link](https://github.com/neovim/neovim "Give me a start :P")
+- **Neovim (nightly)** [Link](https://github.com/neovim/neovim "Give me a starr :P")
 - **Python (embed) + pip + pynvim** [Link](https://www.python.org "Cmon bro :D")
 - **Node.js + npm + neovim provider** [Link](https://nodejs.org/en "It's free xD")
 - **Git (portable)** [Link](https://github.com/git-for-windows/git "Just a simple click xP")
