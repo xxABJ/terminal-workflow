@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 echo.
 echo ==========================================
-echo   PORTABLE TOOLCHAIN INSTALLER (FINAL)
+echo       PORTABLE TOOLCHAIN INSTALLER
 echo ==========================================
 echo.
 
@@ -63,7 +63,6 @@ for /f "usebackq tokens=1,* delims==" %%A in ("%CONF_FILE%") do (
 )
 
 echo.
-echo Skipping validation (Option B).
 echo Proceeding with downloads...
 echo.
 
@@ -87,7 +86,6 @@ mkdir "%TOOLS%\nvim\cache" >nul 2>&1
 mkdir "%TOOLS%\nvim\data" >nul 2>&1
 mkdir "%TOOLS%\nvim\state" >nul 2>&1
 mkdir "%SCRIPTS%" >nul 2>&1
-
 
 rem ============================================================
 rem  GENERATOR SCRIPT (FINAL WITH CORRECT PATH HANDLING)
@@ -180,13 +178,11 @@ rem ============================================================
 echo Running generator script...
 powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%SCRIPTS%\state.ps1" >nul 2>&1
 
-
 echo Creating CMD wrappers...
 
 for %%A in (node npm npx python nvim rg fd) do (
     >"%TOOLS%\%%A.cmd" echo @echo off
     >>"%TOOLS%\%%A.cmd" echo powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%SCRIPTS%\launch-%%A.ps1" %%*
-
 )
 
 echo.
@@ -219,7 +215,6 @@ echo.
 echo [6/6] Neovim...
 call :INSTALL_TOOL "%NEOVIM%" "%TOOLS%\nvim-tmp" "%TOOLS%\nvim\current" "%TOOLS%\nvim.zip"
 
-
 rem ============================================================
 rem  WRITE STATE.JSON
 rem ============================================================
@@ -234,7 +229,6 @@ echo Writing state.json...
 >> "%ROOT%state.json" echo   "fdPath": "%TOOLS:\=\\%\\fd\\current",
 >> "%ROOT%state.json" echo   "gitPath": "%TOOLS:\=\\%\\git\\current\\cmd"
 >> "%ROOT%state.json" echo ^}
-
 
 rem ============================================================
 rem  PYTHON: ENABLE import site IN python314._pth (P1)
@@ -298,7 +292,6 @@ if errorlevel 1 (
 ) else (
     echo npm neovim provider installed successfully.
 )
-
 
 echo.
 echo ==========================================
