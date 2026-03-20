@@ -13,6 +13,9 @@ Drop it into any folder. Run one installer. Get a complete toolchain:
 - **Git (portable)** [Link](https://github.com/git-for-windows/git "Just a simple click xP")
 - **ripgrep** [Link](https://github.com/BurntSushi/ripgrep "Doesn't take that long :')")
 - **fd** [Link](https://github.com/sharkdp/fd "hahaha Thanks bro c':")
+
+## 🧘 Portability to the maximum !
+
 - **Auto‑generated launchers**
 - **Portable PATH activation**
 - **Persistent JSON state**
