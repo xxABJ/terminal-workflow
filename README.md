@@ -13,6 +13,7 @@ Drop it into any folder. Run one installer and get a complete toolchain:
 - **Git (portable)** [Link](https://github.com/git-for-windows/git "Just a simple click xP")
 - **ripgrep** [Link](https://github.com/BurntSushi/ripgrep "Doesn't take that long :')")
 - **fd** [Link](https://github.com/sharkdp/fd "hahaha Thanks bro c':")
+- **Zig** [Link](https://zig.guide/getting-started/installation/ "Enjoy c:")
 
 ## 🧘 Portability to the maximum !
 
@@ -43,6 +44,7 @@ This toolchain never touches:
 - Program Files
 - AppData
 - global Python/Node installations
+- global Zig compiler installations
 
 Everything stays inside one folder.
 Delete the folder → everything is gone.
@@ -94,6 +96,7 @@ Everything still works because paths are stored in `state.json` and launchers ac
 - system Python
 - system Node
 - system Git
+- system Zig
 - system Neovim
 - system PATH
 
@@ -106,6 +109,7 @@ Neovim plugins depend on:
 - ripgrep
 - fd
 - Python + pynvim
+- Zig
 - Node.js + neovim provider
 
 A portable toolchain guarantees all of these exist and work together, no matter what the host machine has installed.
@@ -120,6 +124,7 @@ You always know:
 - what Neovim sees
 - what Python sees
 - what Node sees
+- what Zig sees
 
 No hidden state. No global conflicts. No mystery errors.
 
@@ -192,6 +197,7 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
   "rgPath": "D:\\tw\\tools\\ripgrep\\current",
   "fdPath": "D:\\tw\\tools\\fd\\current",
   "gitPath": "D:\\tw\\tools\\git\\current\\cmd"
+  "zigPath": "C:\\tw\\tools\\zig\\current"
 }
 ```
 
@@ -207,6 +213,7 @@ Delete the `tools/` folder and run the installer again — you get the exact sam
 | **Git (PortableGit)** | Fully portable Git distribution (no installer, no system changes) |
 | **ripgrep** | High‑performance search tool used by many Neovim plugins |
 | **fd** | Fast, user‑friendly alternative to `find`, used by Telescope and others |
+| **Zig** | General-purpose programming language designed for systems programming, offering compile-time safety, explicit memory management, and a modern syntax. |
 
 ---
 
@@ -225,6 +232,7 @@ tw/
     │
     ├── links-latest.conf      # The newest versions of every tool (time of production)
     ├── links-lts.conf         # Stable, long-term support versions
+    ├── links-example.conf     # An example configuration file
     └── links-custom.conf      # User-editable profile for custom versions
 ```
 
@@ -252,7 +260,7 @@ Just delete the folder.
 ## 🛠 Customizing Tool Versions
 
 Your toolchain is fully version‑agnostic.
-Every tool — Neovim, Python, Node.js, Git, ripgrep, fd — is downloaded from URLs defined in a **link profile**.
+Every tool — Neovim, Python, Node.js, Git, ripgrep, fd, Zig — is downloaded from URLs defined in a **link profile**.
 
 These profiles live in:
 
@@ -351,6 +359,8 @@ NEOVIM=https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-win64.zip
 RIPGREP=https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-msvc.zip
 
 FD=https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-v9.0.0-x86_64-pc-windows-msvc.zip
+
+ZIG=https://ziglang.org/download/0.12.0/zig-windows-x86_64-0.12.0.zip
 ```
 
 This file is:
@@ -373,9 +383,12 @@ tw/
 ├── install.cmd                # One-shot installer (downloads + extracts + configures everything)
 ├── state.json                 # Persistent state (paths for all tools)
 │
+│
 ├── tools/                     # All portable tools live here
 │   │
 │   ├── git/
+│   │   ├── home/
+│   │   ├── tmp/
 │   │   └── current/           # PortableGit extracted here
 │   │
 │   ├── node/
@@ -399,7 +412,11 @@ tw/
 │   ├── fd/
 │   │   └── current/           # fd.exe
 │   │
-│   └── curl/ (optional)       # If you add a portable curl later
+│   ├── zig/
+│   │   └── current/           # zig.exe
+│   │
+|   └── *.cmd                  # CMD wrappers for each tool (nvim.cmd, python.cmd, node.cmd, etc.)
+│
 │
 ├── scripts/                   # Auto-generated PowerShell launchers
 │   │
@@ -413,12 +430,12 @@ tw/
 │   ├── launch-rg.ps1          # Activates PATH + runs ripgrep
 │   └── launch-fd.ps1          # Activates PATH + runs fd
 │
-├── *.cmd                      # CMD wrappers for each tool (nvim.cmd, python.cmd, node.cmd, etc.)
 │
 └── links/                     # Version profiles for tools
     │
     ├── links-latest.conf      # Latest versions of all tools
     ├── links-lts.conf         # Long-term stable versions
+    ├── links-example.conf     # An example configuration file
     └── links-custom.conf      # User-defined versions (editable)
 ```
 
@@ -492,8 +509,8 @@ You should see:
 - ripgrep ✔
 - node provider ✔
 - python provider ✔
-- curl ✔
 - treesitter ✔
+- etc
 
 Perl/Ruby warnings are normal unless you install those providers.
 
@@ -514,9 +531,7 @@ Perl/Ruby warnings are normal unless you install those providers.
 - Portable LSP servers
 - Portable Treesitter parser installer
 - Portable plugin manager
-- Auto‑update script
 - GUI launcher
-- Optional curl bundle
 
 ---
 
