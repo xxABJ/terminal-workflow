@@ -449,7 +449,7 @@ Every launcher knows exactly where to look.
 
 ### ✔ Portable
 Move the entire folder → everything still works.
-State.json updates paths automatically.
+State.json updates paths automatically (After reinstalling).
 
 ### ✔ Clean
 No global installs.
